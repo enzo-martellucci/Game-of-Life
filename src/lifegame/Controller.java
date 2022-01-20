@@ -21,7 +21,7 @@ public class Controller
 		{
 			try
 			{
-				Thread.sleep(1000);
+				Thread.sleep(100);
 			}
 			catch (Exception e){ e.printStackTrace(); }
 			this.grid.next();
