@@ -11,6 +11,9 @@ public class Controller
 	private Grid grid;
 	private View view;
 
+	private Loop loop;
+	private boolean paused;
+
 
 	// Constructor
 	private Controller()
@@ -18,29 +21,35 @@ public class Controller
 		this.grid = new Grid();
 		this.view = new View(this, this.grid);
 
-		this.view.maj();
-		for (int i = 0; i < 10000; i++)
-		{
-			try
-			{
-				Thread.sleep(1);
-			}
-			catch (Exception e){ e.printStackTrace(); }
-			this.grid.next();
-			this.view.maj();
-		}
+		this.loop   = new Loop(this);
+		this.paused = true;
+
+		new Thread(this.loop).start();
 	}
 
 
+	// Accessors
+	public boolean isPaused(){ return this.paused; }
+
+
 	// Methods
-	public void playPause()
+	synchronized void loopMaj()
 	{
-		System.out.println("Play Pause");
+		if (this.paused)
+			try{ this.wait(); } catch (Exception e){ e.printStackTrace(); }
+		this.next();
+	}
+
+	public synchronized  void playPause()
+	{
+		this.paused = !this.paused;
+		this.notify();
 	}
 
 	public void next()
 	{
-		System.out.println("Next");
+		this.grid.next();
+		this.view.maj();
 	}
 
 	public void previous()

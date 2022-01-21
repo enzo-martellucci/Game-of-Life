@@ -20,15 +20,12 @@ public class PanelAction extends JPanel implements ActionListener
 	private JButton btnLoad;
 	private JButton btnSave;
 
-	private boolean play;
-
 
 	// Constructor
 	PanelAction(Controller ctrl)
 	{
 		// Parameters
 		this.ctrl = ctrl;
-		this.play = true;
 		this.setLayout(new GridLayout(2, 3, 5, 5));
 		this.setBorder(BorderFactory.createEmptyBorder(10, 5, 10, 5));
 
@@ -71,11 +68,10 @@ public class PanelAction extends JPanel implements ActionListener
 		else if (src == this.btnPP     )
 		{
 			this.ctrl.playPause();
-			if (this.play)
-				UIFactory.useDesign(this.btnPP, "pause.png");
-			else
+			if (this.ctrl.isPaused())
 				UIFactory.useDesign(this.btnPP, "play.png");
-			this.play = !this.play;
+			else
+				UIFactory.useDesign(this.btnPP, "pause.png");
 		}
 	}
 }
