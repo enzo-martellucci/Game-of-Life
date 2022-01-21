@@ -32,6 +32,38 @@ public class Controller
 	}
 
 
+	// Methods
+	public void playPause()
+	{
+		System.out.println("Play Pause");
+	}
+
+	public void next()
+	{
+		System.out.println("Next");
+	}
+
+	public void previous()
+	{
+		System.out.println("Previous");
+	}
+
+	public void restart()
+	{
+		System.out.println("Restart");
+	}
+
+	public void load()
+	{
+		System.out.println("Load");
+	}
+
+	public void save()
+	{
+		System.out.println("Save");
+	}
+
+
 	// Main
 	public static void main(String[] args)
 	{

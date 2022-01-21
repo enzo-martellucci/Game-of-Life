@@ -25,7 +25,7 @@ public class PanelSpeed extends JPanel
 		this.sldSpeed = new JSlider();
 
 		// Positioning
-		this.add(new JLabel("Speed (1ms - 5s delay) : "));
+		this.add(new JLabel("Speed (5s - 1ms delay) : "));
 		this.add(this.sldSpeed);
 	}
 }
