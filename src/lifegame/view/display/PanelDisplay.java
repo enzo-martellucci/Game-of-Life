@@ -24,13 +24,11 @@ public class PanelDisplay extends JPanel
 
 
 	// Constructor
-	public PanelDisplay(Grid grid, Dimension screen)
+	public PanelDisplay(Grid grid)
 	{
 		this.cells = grid.getCells();
-
 		this.origin = new Point();
-		this.setMinimumSize(new Dimension(106, 106));
-		this.setPreferredSize(new Dimension((int) (0.75 * screen.width), (int) (0.95 * screen.height)));
+		this.setPreferredSize(new Dimension(5000, 5000));
 	}
 
 
@@ -58,20 +56,18 @@ public class PanelDisplay extends JPanel
 
 	public void majDimension()
 	{
-		Dimension size = this.getSize();
-
 		// Cells size calculation
 		int nbCellH = this.cells[0].length - 2;
 		int nbCellV = this.cells   .length - 2;
 
-		this.cellSize = Math.min((size.width  - 6) / nbCellH, (size.height - 6) / nbCellV);
+		this.cellSize = Math.min((this.getWidth()  - 6) / nbCellH, (this.getHeight() - 6) / nbCellV);
 
 		// Inner size calculation
 		this.innerWidth  = nbCellH * this.cellSize;
 		this.innerHeight = nbCellV * this.cellSize;
 
 		// Drawing origin calculation
-		this.origin.x = (size.width  - this.innerWidth  - 6) / 2;
-		this.origin.y = (size.height - this.innerHeight - 6) / 2;
+		this.origin.x = (this.getWidth()  - this.innerWidth  - 6) / 2;
+		this.origin.y = (this.getHeight() - this.innerHeight - 6) / 2;
 	}
 }

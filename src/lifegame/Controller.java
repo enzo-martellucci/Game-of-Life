@@ -3,6 +3,8 @@ package lifegame;
 import lifegame.model.Grid;
 import lifegame.view.View;
 
+import javax.swing.*;
+
 public class Controller
 {
 	// Attributes
@@ -21,7 +23,7 @@ public class Controller
 		{
 			try
 			{
-				Thread.sleep(100);
+				Thread.sleep(1);
 			}
 			catch (Exception e){ e.printStackTrace(); }
 			this.grid.next();

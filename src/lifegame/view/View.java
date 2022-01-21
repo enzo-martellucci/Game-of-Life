@@ -2,6 +2,7 @@ package lifegame.view;
 
 import lifegame.Controller;
 import lifegame.model.Grid;
+import lifegame.view.action.PanelUser;
 import lifegame.view.display.PanelDisplay;
 
 import javax.swing.*;
@@ -13,23 +14,20 @@ public class View extends JFrame
 {
 	// Attributes
 	private PanelDisplay panelDisplay;
-//	private PanelAction  panelAction ;
+	private PanelUser    panelUser;
 
 
 	// Constructor
 	public View(Controller ctrl, Grid grid)
 	{
-		// Calculate screen size
-		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-
 		// Creation and positioning
-		this.panelDisplay = new PanelDisplay(grid, screen);
-//		this.panelAction  = new PanelAction (grid, ctrl, screen);
+		this.panelDisplay = new PanelDisplay(grid);
+		this.panelUser    = new PanelUser(ctrl, grid);
 
 		this.add(this.panelDisplay, BorderLayout.CENTER);
-//		this.add(this.panelAction , BorderLayout.EAST  );
+		this.add(this.panelUser   , BorderLayout.EAST  );
 
-		// Component dimension maj
+		// Component dimensioning
 		this.pack();
 		this.panelDisplay.majDimension();
 
