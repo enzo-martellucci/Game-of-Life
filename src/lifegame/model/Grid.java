@@ -2,6 +2,8 @@ package lifegame.model;
 
 import lifegame.model.util.Filler;
 
+import java.util.BitSet;
+
 public class Grid
 {
 	// Constants
@@ -11,6 +13,8 @@ public class Grid
 
 	// Attributes
 	private boolean[][] cells;
+	private BitSet [][] history;
+	private int         counter;
 
 
 	// Constructor / Initialisation
@@ -22,25 +26,12 @@ public class Grid
 
 	private void initGrid(int line, int col)
 	{
-		this.cells = new boolean[line + 2][col + 2];
-	}
+		this.cells   = new boolean[line + 2][col + 2];
+		this.history = new BitSet [line + 2][col + 2];
 
-	private boolean calcNext(int l, int c)
-	{
-		int aliveNeighbors = 0;
-
-		if (this.cells[l-1][c-1]) aliveNeighbors++;
-		if (this.cells[l-1][c  ]) aliveNeighbors++;
-		if (this.cells[l-1][c+1]) aliveNeighbors++;
-
-		if (this.cells[l  ][c-1]) aliveNeighbors++;
-		if (this.cells[l  ][c+1]) aliveNeighbors++;
-
-		if (this.cells[l+1][c-1]) aliveNeighbors++;
-		if (this.cells[l+1][c  ]) aliveNeighbors++;
-		if (this.cells[l+1][c+1]) aliveNeighbors++;
-
-		return this.cells[l][c] && (aliveNeighbors == 2 || aliveNeighbors == 3) || !this.cells[l][c] && aliveNeighbors == 3;
+		for (int l = 0; l < this.history.length; l++)
+			for (int c = 0; c < this.history[l].length; c++)
+				this.history[l][c] = new BitSet();
 	}
 
 
@@ -60,28 +51,89 @@ public class Grid
 	}
 
 
-	// Methods
+	// Generation methods
+	public void random()
+	{
+		Filler.random(this.cells);
+		this.initMemory();
+	}
+
+	public void randomS()
+	{
+		Filler.randomS(this.cells);
+		this.initMemory();
+	}
+
+	public void randomDS()
+	{
+		Filler.randomDS(this.cells);
+		this.initMemory();
+	}
+
+
+	// Action methods
 	public void next()
 	{
+		this.counter++;
+
+		// go to next step and store it in history
 		boolean[][] nextCells = new boolean[this.cells.length][this.cells[0].length];
 
 		for (int l = 1, lMax = this.cells.length - 1, cMax = this.cells[0].length - 1; l < lMax; l++)
 			for (int c = 1; c < cMax; c++)
-				nextCells[l][c] = this.calcNext(l, c);
+				nextCells[l][c] = this.next(l, c);
 
 		this.cells = nextCells;
+
+		// clear a part of history if necessary
+		if (this.counter == 512)
+			this.majMemory();
 	}
 
-	public void random  ()
+	private boolean next(int l, int c)
 	{
-		Filler.random  (this.cells);
+		int aliveNeighbors = 0;
+		if (this.cells[l-1][c-1]) aliveNeighbors++;
+		if (this.cells[l-1][c  ]) aliveNeighbors++;
+		if (this.cells[l-1][c+1]) aliveNeighbors++;
+
+		if (this.cells[l  ][c-1]) aliveNeighbors++;
+		if (this.cells[l  ][c+1]) aliveNeighbors++;
+
+		if (this.cells[l+1][c-1]) aliveNeighbors++;
+		if (this.cells[l+1][c  ]) aliveNeighbors++;
+		if (this.cells[l+1][c+1]) aliveNeighbors++;
+
+		boolean next = this.cells[l][c] && (aliveNeighbors == 2 || aliveNeighbors == 3) || !this.cells[l][c] && aliveNeighbors == 3;
+		this.history[l][c].set(this.counter, next);
+		return next;
 	}
-	public void randomS ()
+
+	public void previous()
 	{
-		Filler.randomS (this.cells);
+		if (this.counter == 0)
+			return;
+
+		this.counter--;
+		for (int l = 1, lMax = this.cells.length - 1, cMax = this.cells[0].length - 1; l < lMax; l++)
+			for (int c = 1; c < cMax; c++)
+				this.cells[l][c] = this.history[l][c].get(this.counter);
 	}
-	public void randomDS()
+
+	// Memory methods
+	private void initMemory()
 	{
-		Filler.randomDS(this.cells);
+		for (int l = 1, lMax = this.history.length - 1, cMax = this.history[0].length - 1; l < lMax; l++)
+			for (int c = 1; c < cMax; c++)
+				this.history[l][c].set(0, this.cells[l][c]);
+		this.counter = 0;
+	}
+
+	private void majMemory()
+	{
+		for (int l = 1, lMax = this.history.length - 1, cMax = this.history[0].length - 1; l < lMax; l++)
+			for (int c = 1; c < cMax; c++)
+				this.history[l][c] = this.history[l][c].get(256, 513);
+		this.counter = 256;
 	}
 }

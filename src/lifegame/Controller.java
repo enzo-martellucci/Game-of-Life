@@ -58,7 +58,10 @@ public class Controller
 
 	public void previous()
 	{
-		System.out.println("Previous");
+		if (!this.paused)
+			this.playPause();
+		this.grid.previous();
+		this.view.maj();
 	}
 
 	public void restart()
