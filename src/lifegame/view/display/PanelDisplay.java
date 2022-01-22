@@ -1,6 +1,5 @@
 package lifegame.view.display;
 
-import lifegame.model.Cell;
 import lifegame.model.Grid;
 
 import javax.swing.*;
@@ -15,7 +14,7 @@ public class PanelDisplay extends JPanel
 
 
 	// Attributes
-	private Cell[][] cells;
+	private Grid grid;
 
 	private Point origin;
 	private int   cellSize;
@@ -26,7 +25,8 @@ public class PanelDisplay extends JPanel
 	// Constructor
 	public PanelDisplay(Grid grid)
 	{
-		this.cells = grid.getCells();
+		this.grid = grid;
+
 		this.origin = new Point();
 		this.setPreferredSize(new Dimension(5000, 5000));
 	}
@@ -46,19 +46,21 @@ public class PanelDisplay extends JPanel
 		g.fillRect(this.origin.x + 3, this.origin.y + 3, this.innerWidth, this.innerHeight);
 
 		// Draw alive cells
+		boolean[][] cells = this.grid.getCells();
+
 		g.setColor(ALIVE);
 		Point cellOrigin = new Point(this.origin.x + 3, this.origin.y + 3);
-		for (int l = 1; l < this.cells.length - 1; l++, cellOrigin.y += this.cellSize, cellOrigin.x = this.origin.x + 3)
-			for (int c = 1; c < this.cells[l].length - 1; c++, cellOrigin.x += this.cellSize)
-				if (this.cells[l][c].getState())
+		for (int l = 1; l < cells.length - 1; l++, cellOrigin.y += this.cellSize, cellOrigin.x = this.origin.x + 3)
+			for (int c = 1; c < cells[l].length - 1; c++, cellOrigin.x += this.cellSize)
+				if (cells[l][c])
 					g.fillRect(cellOrigin.x, cellOrigin.y, this.cellSize, this.cellSize);
 	}
 
 	public void majDimension()
 	{
 		// Cells size calculation
-		int nbCellH = this.cells[0].length - 2;
-		int nbCellV = this.cells   .length - 2;
+		int nbCellH = this.grid.getNbCol ();
+		int nbCellV = this.grid.getNbLine();
 
 		this.cellSize = Math.min((this.getWidth()  - 6) / nbCellH, (this.getHeight() - 6) / nbCellV);
 

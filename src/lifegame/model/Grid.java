@@ -10,7 +10,7 @@ public class Grid
 
 
 	// Attributes
-	private Cell[][] cells;
+	private boolean[][] cells;
 
 
 	// Constructor / Initialisation
@@ -22,30 +22,39 @@ public class Grid
 
 	private void initGrid(int line, int col)
 	{
-		this.cells = new Cell[INITIAL_HEIGHT + 2][INITIAL_WIDTH + 2];
-
-		for (int l = 0; l < this.cells.length; l++)
-			for (int c = 0; c < this.cells[l].length; c++)
-				this.cells[l][c] = new Cell();
-
-		for (int l = 1, lMax = this.cells.length - 1, cMax = this.cells[0].length - 1; l < lMax; l++)
-			for (int c = 1; c < cMax; c++)
-				this.cells[l][c].initNeighbors(this.getNeighbors(l, c));
+		this.cells = new boolean[line + 2][col + 2];
 	}
 
-	private Cell[] getNeighbors(int l, int c)
+	private boolean calcNext(int l, int c)
 	{
-		return new Cell[]
-		{
-			this.cells[l-1][c-1], this.cells[l-1][c  ], this.cells[l-1][c+1],
-			this.cells[l  ][c-1],                       this.cells[l  ][c+1],
-			this.cells[l+1][c-1], this.cells[l+1][c  ], this.cells[l+1][c+1]
-		};
+		int aliveNeighbors = 0;
+
+		if (this.cells[l-1][c-1]) aliveNeighbors++;
+		if (this.cells[l-1][c  ]) aliveNeighbors++;
+		if (this.cells[l-1][c+1]) aliveNeighbors++;
+
+		if (this.cells[l  ][c-1]) aliveNeighbors++;
+		if (this.cells[l  ][c+1]) aliveNeighbors++;
+
+		if (this.cells[l+1][c-1]) aliveNeighbors++;
+		if (this.cells[l+1][c  ]) aliveNeighbors++;
+		if (this.cells[l+1][c+1]) aliveNeighbors++;
+
+		return this.cells[l][c] && (aliveNeighbors == 2 || aliveNeighbors == 3) || !this.cells[l][c] && aliveNeighbors == 3;
 	}
 
 
 	// Getters
-	public Cell[][] getCells()
+	public int getNbLine()
+	{
+		return this.cells   .length - 2;
+	}
+	public int getNbCol ()
+	{
+		return this.cells[0].length - 2;
+	}
+
+	public boolean[][] getCells()
 	{
 		return this.cells;
 	}
@@ -54,13 +63,13 @@ public class Grid
 	// Methods
 	public void next()
 	{
-		for (int l = 1, lMax = this.cells.length - 1, cMax = this.cells[0].length - 1; l < lMax; l++)
-			for (int c = 1; c < cMax; c++)
-				this.cells[l][c].calcNext();
+		boolean[][] nextCells = new boolean[this.cells.length][this.cells[0].length];
 
 		for (int l = 1, lMax = this.cells.length - 1, cMax = this.cells[0].length - 1; l < lMax; l++)
 			for (int c = 1; c < cMax; c++)
-				this.cells[l][c].next();
+				nextCells[l][c] = this.calcNext(l, c);
+
+		this.cells = nextCells;
 	}
 
 	public void random  ()
