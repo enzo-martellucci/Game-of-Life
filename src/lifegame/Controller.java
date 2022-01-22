@@ -37,17 +37,21 @@ public class Controller
 	{
 		if (this.paused)
 			try{ this.wait(); } catch (Exception e){ e.printStackTrace(); }
-		this.next();
+		this.grid.next();
+		this.view.maj();
 	}
 
-	public synchronized  void playPause()
+	public synchronized void playPause()
 	{
 		this.paused = !this.paused;
+		this.view.majAction();
 		this.notify();
 	}
 
 	public void next()
 	{
+		if (!this.paused)
+			this.playPause();
 		this.grid.next();
 		this.view.maj();
 	}
@@ -70,6 +74,30 @@ public class Controller
 	public void save()
 	{
 		System.out.println("Save");
+	}
+
+	public void random()
+	{
+		if (!this.paused)
+			this.playPause();
+		this.grid.random();
+		this.view.maj();
+	}
+
+	public void randomS()
+	{
+		if (!this.paused)
+			this.playPause();
+		this.grid.randomS();
+		this.view.maj();
+	}
+
+	public void randomDS()
+	{
+		if (!this.paused)
+			this.playPause();
+		this.grid.randomDS();
+		this.view.maj();
 	}
 
 

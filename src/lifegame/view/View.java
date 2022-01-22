@@ -51,4 +51,9 @@ public class View extends JFrame
 	{
 		this.panelDisplay.repaint();
 	}
+
+	public void majAction()
+	{
+		this.panelUser.majAction();
+	}
 }

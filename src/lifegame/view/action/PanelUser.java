@@ -42,4 +42,9 @@ public class PanelUser extends JPanel
 
 		this.add(panelTmp, BorderLayout.NORTH);
 	}
+
+	public void majAction()
+	{
+		this.panelAction.maj();
+	}
 }

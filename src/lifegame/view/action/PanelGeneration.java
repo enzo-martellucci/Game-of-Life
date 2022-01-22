@@ -5,15 +5,17 @@ import lifegame.view.util.UIFactory;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class PanelGeneration extends JPanel
+public class PanelGeneration extends JPanel implements ActionListener
 {
 	// Attributes
 	Controller ctrl;
 
 	private JButton btnRandom;
-	private JButton btnRandomSymmetric;
-	private JButton btnRandomDoubleSymmetric;
+	private JButton btnRandomS;
+	private JButton btnRandomDS;
 
 
 	// Construtor
@@ -25,13 +27,27 @@ public class PanelGeneration extends JPanel
 		this.setBorder(BorderFactory.createEmptyBorder(10, 5, 10, 5));
 
 		// Creation
-		this.btnRandom                = UIFactory.createBtn("random.png");
-		this.btnRandomSymmetric       = UIFactory.createBtn("randomS.png");
-		this.btnRandomDoubleSymmetric = UIFactory.createBtn("randomDS.png");
+		this.btnRandom   = UIFactory.createBtn("random.png");
+		this.btnRandomS  = UIFactory.createBtn("randomS.png");
+		this.btnRandomDS = UIFactory.createBtn("randomDS.png");
+
+		// Listen event
+		this.btnRandom  .addActionListener(this);
+		this.btnRandomS .addActionListener(this);
+		this.btnRandomDS.addActionListener(this);
 
 		// Positioning
 		this.add(this.btnRandom);
-		this.add(this.btnRandomSymmetric);
-		this.add(this.btnRandomDoubleSymmetric);
+		this.add(this.btnRandomS);
+		this.add(this.btnRandomDS);
+	}
+
+	public void actionPerformed(ActionEvent e)
+	{
+		Object src = e.getSource();
+
+		if      (src == this.btnRandom  ){ this.ctrl.random  (); }
+		else if (src == this.btnRandomS ){ this.ctrl.randomS (); }
+		else if (src == this.btnRandomDS){ this.ctrl.randomDS(); }
 	}
 }

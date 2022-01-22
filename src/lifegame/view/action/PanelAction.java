@@ -65,13 +65,14 @@ public class PanelAction extends JPanel implements ActionListener
 		else if (src == this.btnRestart) this.ctrl.restart();
 		else if (src == this.btnLoad   ) this.ctrl.load();
 		else if (src == this.btnSave   ) this.ctrl.save();
-		else if (src == this.btnPP     )
-		{
-			this.ctrl.playPause();
-			if (this.ctrl.isPaused())
-				UIFactory.useDesign(this.btnPP, "play.png");
-			else
-				UIFactory.useDesign(this.btnPP, "pause.png");
-		}
+		else if (src == this.btnPP     ) this.ctrl.playPause();
+	}
+
+	public void maj()
+	{
+		if (this.ctrl.isPaused())
+			UIFactory.useDesign(this.btnPP, "play.png");
+		else
+			UIFactory.useDesign(this.btnPP, "pause.png");
 	}
 }

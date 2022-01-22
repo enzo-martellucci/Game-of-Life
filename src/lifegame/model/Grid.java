@@ -17,7 +17,7 @@ public class Grid
 	public Grid()
 	{
 		this.initGrid(INITIAL_HEIGHT, INITIAL_WIDTH);
-		Filler.random(this.cells);
+		this.random();
 	}
 
 	private void initGrid(int line, int col)
@@ -28,8 +28,8 @@ public class Grid
 			for (int c = 0; c < this.cells[l].length; c++)
 				this.cells[l][c] = new Cell();
 
-		for (int l = 1; l < this.cells.length - 1; l++)
-			for (int c = 1; c < this.cells[l].length - 1; c++)
+		for (int l = 1, lMax = this.cells.length - 1, cMax = this.cells[0].length - 1; l < lMax; l++)
+			for (int c = 1; c < cMax; c++)
 				this.cells[l][c].initNeighbors(this.getNeighbors(l, c));
 	}
 
@@ -54,12 +54,25 @@ public class Grid
 	// Methods
 	public void next()
 	{
-		for (int l = 1; l < this.cells.length - 1; l++)
-			for (int c = 1; c < this.cells[l].length - 1; c++)
+		for (int l = 1, lMax = this.cells.length - 1, cMax = this.cells[0].length - 1; l < lMax; l++)
+			for (int c = 1; c < cMax; c++)
 				this.cells[l][c].calcNext();
 
-		for (int l = 1; l < this.cells.length - 1; l++)
-			for (int c = 1; c < this.cells[l].length - 1; c++)
+		for (int l = 1, lMax = this.cells.length - 1, cMax = this.cells[0].length - 1; l < lMax; l++)
+			for (int c = 1; c < cMax; c++)
 				this.cells[l][c].next();
+	}
+
+	public void random  ()
+	{
+		Filler.random  (this.cells);
+	}
+	public void randomS ()
+	{
+		Filler.randomS (this.cells);
+	}
+	public void randomDS()
+	{
+		Filler.randomDS(this.cells);
 	}
 }

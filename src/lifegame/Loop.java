@@ -14,7 +14,7 @@ public class Loop implements Runnable
 	{
 		this.ctrl = ctrl;
 
-		this.delay = 500;
+		this.delay = 100;
 		this.running = true;
 	}
 
@@ -24,7 +24,6 @@ public class Loop implements Runnable
 	{
 		while (this.running)
 		{
-			System.out.println("Loop");
 			try
 			{
 				this.ctrl.loopMaj();
