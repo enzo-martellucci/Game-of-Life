@@ -4,7 +4,6 @@ import lifegame.model.util.Filler;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.util.BitSet;
 import java.util.Scanner;
@@ -127,7 +126,7 @@ public class Grid
 
 	public void restart()
 	{
-
+		this.load("./saved/__restart.cells");
 	}
 
 	public void save(String name)
@@ -166,6 +165,7 @@ public class Grid
 	// Memory methods
 	private void initMemory()
 	{
+		this.save("__restart");
 		for (int l = 1, lMax = this.history.length - 1, cMax = this.history[0].length - 1; l < lMax; l++)
 			for (int c = 1; c < cMax; c++)
 				this.history[l][c].set(0, this.cells[l][c]);

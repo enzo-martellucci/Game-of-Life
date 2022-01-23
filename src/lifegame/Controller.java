@@ -64,7 +64,11 @@ public class Controller
 
 	public void restart()
 	{
-		System.out.println("Restart");
+		if (!this.paused)
+			this.playPause();
+		this.grid.restart();
+		this.view.majDimension();
+		this.view.maj();
 	}
 
 	public void load(String file)
