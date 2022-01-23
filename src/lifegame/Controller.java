@@ -67,16 +67,20 @@ public class Controller
 		System.out.println("Restart");
 	}
 
-	public void load()
+	public void load(String file)
 	{
-		System.out.println("Load");
+		if (!this.paused)
+			this.playPause();
+		this.grid.load(file);
+		this.view.majDimension();
+		this.view.maj();
 	}
 
-	public void save(String name)
+	public void save(String file)
 	{
-		if (name == null)
+		if (file == null)
 			return;
-		this.grid.save(name);
+		this.grid.save(file);
 	}
 
 	public void random()

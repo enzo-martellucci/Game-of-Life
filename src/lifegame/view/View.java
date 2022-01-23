@@ -29,7 +29,7 @@ public class View extends JFrame
 
 		// Component dimensioning
 		this.pack();
-		this.panelDisplay.majDimension();
+		this.majDimension();
 
 		// Listen for Frame resizing
 		this.addComponentListener(new ComponentAdapter()
@@ -55,5 +55,9 @@ public class View extends JFrame
 	public void majAction()
 	{
 		this.panelUser.majAction();
+	}
+	public void majDimension()
+	{
+		this.panelDisplay.majDimension();
 	}
 }

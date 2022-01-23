@@ -3,9 +3,11 @@ package lifegame.model;
 import lifegame.model.util.Filler;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.util.BitSet;
+import java.util.Scanner;
 
 public class Grid
 {
@@ -143,9 +145,22 @@ public class Grid
 		catch (Exception e){ e.printStackTrace(); }
 	}
 
-	public void load()
+	public void load(String file)
 	{
+		int nbLine = 0, nbCol = 0;
+		try (Scanner sc = new Scanner(new FileInputStream(file)))
+		{
+			String line = null;
+			for (; sc.hasNextLine(); line = sc.nextLine(), nbLine++);
+			nbCol = line.length();
 
+			if (nbLine == 0 || nbCol == 0) return;
+		}
+		catch (Exception e){ e.printStackTrace(); }
+
+		this.initGrid(nbLine, nbCol);
+		Filler.file(this.cells, file);
+		this.initMemory();
 	}
 
 	// Memory methods

@@ -4,9 +4,11 @@ import lifegame.Controller;
 import lifegame.view.util.UIFactory;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 public class PanelAction extends JPanel implements ActionListener
 {
@@ -19,6 +21,8 @@ public class PanelAction extends JPanel implements ActionListener
 	private JButton btnRestart;
 	private JButton btnLoad;
 	private JButton btnSave;
+
+	private JFileChooser chooser;
 
 
 	// Constructor
@@ -36,6 +40,9 @@ public class PanelAction extends JPanel implements ActionListener
 		this.btnRestart   = UIFactory.createBtn("restart.png");
 		this.btnLoad      = UIFactory.createBtn("load.png");
 		this.btnSave      = UIFactory.createBtn("save.png");
+
+		this.chooser = new JFileChooser(new File("."));
+		this.chooser.setFileFilter(new FileNameExtensionFilter(null, "cells"));
 
 		// Listen event
 		this.btnPrev   .addActionListener(this);
@@ -63,9 +70,10 @@ public class PanelAction extends JPanel implements ActionListener
 		if      (src == this.btnPrev   ) this.ctrl.previous();
 		else if (src == this.btnNext   ) this.ctrl.next();
 		else if (src == this.btnRestart) this.ctrl.restart();
-		else if (src == this.btnLoad   ) this.ctrl.load();
-		else if (src == this.btnSave   ) this.ctrl.save(JOptionPane.showInputDialog(null, null, "File name", JOptionPane.QUESTION_MESSAGE));
 		else if (src == this.btnPP     ) this.ctrl.playPause();
+		else if (src == this.btnSave   ) this.ctrl.save(JOptionPane.showInputDialog(null, null, "File name", JOptionPane.QUESTION_MESSAGE));
+		else if (src == this.btnLoad && this.chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
+			this.ctrl.load(this.chooser.getSelectedFile().getAbsolutePath());
 	}
 
 	public void maj()
