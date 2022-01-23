@@ -3,8 +3,6 @@ package lifegame;
 import lifegame.model.Grid;
 import lifegame.view.View;
 
-import javax.swing.*;
-
 public class Controller
 {
 	// Attributes
@@ -74,9 +72,11 @@ public class Controller
 		System.out.println("Load");
 	}
 
-	public void save()
+	public void save(String name)
 	{
-		System.out.println("Save");
+		if (name == null)
+			return;
+		this.grid.save(name);
 	}
 
 	public void random()

@@ -64,7 +64,7 @@ public class PanelAction extends JPanel implements ActionListener
 		else if (src == this.btnNext   ) this.ctrl.next();
 		else if (src == this.btnRestart) this.ctrl.restart();
 		else if (src == this.btnLoad   ) this.ctrl.load();
-		else if (src == this.btnSave   ) this.ctrl.save();
+		else if (src == this.btnSave   ) this.ctrl.save(JOptionPane.showInputDialog(null, null, "File name", JOptionPane.QUESTION_MESSAGE));
 		else if (src == this.btnPP     ) this.ctrl.playPause();
 	}
 

@@ -2,6 +2,9 @@ package lifegame.model;
 
 import lifegame.model.util.Filler;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
 import java.util.BitSet;
 
 public class Grid
@@ -118,6 +121,31 @@ public class Grid
 		for (int l = 1, lMax = this.cells.length - 1, cMax = this.cells[0].length - 1; l < lMax; l++)
 			for (int c = 1; c < cMax; c++)
 				this.cells[l][c] = this.history[l][c].get(this.counter);
+	}
+
+	public void restart()
+	{
+
+	}
+
+	public void save(String name)
+	{
+		File directory = new File("./saved");
+		if (!directory.exists())
+			directory.mkdir();
+
+		try (PrintWriter pw = new PrintWriter("./saved/" + name + ".cells"))
+		{
+			for (int l = 1, lMax = this.cells.length - 1, cMax = this.cells[0].length - 1; l < lMax; l++, pw.println())
+				for (int c = 1; c < cMax; c++)
+					pw.print(this.cells[l][c] ? 'O' : '.');
+		}
+		catch (Exception e){ e.printStackTrace(); }
+	}
+
+	public void load()
+	{
+
 	}
 
 	// Memory methods
