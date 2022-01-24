@@ -16,13 +16,12 @@ public class Controller
 	// Constructor
 	private Controller()
 	{
-		this.grid = new Grid();
-		this.view = new View(this, this.grid);
-
 		this.loop   = new Loop(this);
 		this.paused = true;
-
 		new Thread(this.loop).start();
+
+		this.grid = new Grid();
+		this.view = new View(this, this.grid);
 	}
 
 
@@ -109,6 +108,11 @@ public class Controller
 			this.playPause();
 		this.grid.randomDS();
 		this.view.maj();
+	}
+
+	public void changeSpeed(int value)
+	{
+		this.loop.setSpeed(value);
 	}
 
 

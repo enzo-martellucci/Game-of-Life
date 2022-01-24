@@ -12,9 +12,7 @@ public class Loop implements Runnable
 	// Constructor
 	Loop(Controller ctrl)
 	{
-		this.ctrl = ctrl;
-
-		this.delay = 100;
+		this.ctrl    = ctrl;
 		this.running = true;
 	}
 
@@ -33,9 +31,14 @@ public class Loop implements Runnable
 		}
 	}
 
-	void setDelay(int delay)
+	void setSpeed(int value)
 	{
-		this.delay = delay;
+		double tmp;
+
+		if   (value <=50) tmp = 100 + ((50  - value) / 50.0) * 900;
+		else              tmp = 1   + ((100 - value) / 50.0) * 99;
+
+		this.delay = (int) tmp;
 	}
 
 	void stop()
