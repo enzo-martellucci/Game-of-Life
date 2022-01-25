@@ -30,8 +30,8 @@ public class PanelAction extends JPanel implements ActionListener
 	{
 		// Parameters
 		this.ctrl = ctrl;
-		this.setLayout(new GridLayout(2, 3, 5, 5));
-		this.setBorder(BorderFactory.createEmptyBorder(10, 5, 10, 5));
+		this.setLayout(new GridLayout(2, 3, 30, 30));
+		this.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 
 		// Creation
 		this.btnPrev      = UIFactory.createBtn("prev.png");
@@ -78,9 +78,6 @@ public class PanelAction extends JPanel implements ActionListener
 
 	public void maj()
 	{
-		if (this.ctrl.isPaused())
-			UIFactory.useDesign(this.btnPP, "play.png");
-		else
-			UIFactory.useDesign(this.btnPP, "pause.png");
+		UIFactory.useDesign(this.btnPP, this.ctrl.isPaused() ? "play.png" : "pause.png");
 	}
 }

@@ -60,4 +60,13 @@ public class View extends JFrame
 	{
 		this.panelDisplay.majDimension();
 	}
+
+	public int getMaxLine()
+	{
+		return this.panelDisplay.getMaxLine();
+	}
+	public int getMaxCol ()
+	{
+		return this.panelDisplay.getMaxCol();
+	}
 }

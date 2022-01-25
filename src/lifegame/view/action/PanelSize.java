@@ -2,57 +2,96 @@ package lifegame.view.action;
 
 import lifegame.Controller;
 import lifegame.model.Grid;
+import lifegame.view.util.UIFactory;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class PanelSize extends JPanel
+public class PanelSize extends JPanel implements ActionListener
 {
 	// Attributes
 	private Controller ctrl;
+	private Grid grid;
 
-	private JSlider sldLine;
-	private JSlider sldCol;
+	private boolean linked;
+
 	private JTextField txtLine;
 	private JTextField txtCol;
 	private JButton btnLinked;
 
 
 	// Constructor
-	PanelSize(Controller ctrl)
+	PanelSize(Controller ctrl, Grid grid)
 	{
 		// Parameters
 		this.ctrl = ctrl;
-//		this.setLayout(new GridLayout(2, 3, 5, 5));
-		this.setLayout(new BorderLayout(5, 5));
-		this.setBorder(BorderFactory.createEmptyBorder(10, 5, 10, 5));
+		this.grid = grid;
+
+		this.linked = true;
+
+		this.setLayout(new BorderLayout(10, 0));
+		this.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 
 		// Creation and parameters
-		this.sldLine   = new JSlider();
-		this.sldCol    = new JSlider();
-		this.txtLine   = new JTextField(5);
-		this.txtCol    = new JTextField(5);
-		this.btnLinked = new JButton("|");
+		this.txtLine   = new JTextField("" + this.grid.getNbLine());
+		this.txtCol    = new JTextField("" + this.grid.getNbCol ());
+		this.btnLinked = UIFactory.createBtn("link.png");
 
-		this.sldLine.setPreferredSize(new Dimension(100, 20));
-		this.sldCol .setPreferredSize(new Dimension(100, 20));
+		this.txtLine.setHorizontalAlignment(JTextField.RIGHT);
+		this.txtCol .setHorizontalAlignment(JTextField.RIGHT);
+
+		// Listen event
+		this.txtLine  .addActionListener(this);
+		this.txtCol   .addActionListener(this);
+		this.btnLinked.addActionListener(this);
 
 		// Positioning
-		JPanel panelLbl = new JPanel(new GridLayout(2, 1, 5, 5));
-		JPanel panelTxt = new JPanel(new GridLayout(2, 1, 5, 5));
-		JPanel panelSld = new JPanel(new GridLayout(2, 1, 5, 5));
+		JPanel panelLbl = new JPanel(new GridLayout(2, 1, 0, 10));
+		JPanel panelTxt = new JPanel(new GridLayout(2, 1, 0, 10));
 
-		panelLbl.add(new JLabel("Lines : "));
-		panelLbl.add(new JLabel("Columns : "));
-
+		panelLbl.add(UIFactory.createLbl("height.png"));
+		panelLbl.add(UIFactory.createLbl("width.png"));
 		panelTxt.add(this.txtLine);
 		panelTxt.add(this.txtCol);
 
-		panelSld.add(this.sldLine);
-		panelSld.add(this.sldCol);
+		JPanel panelTmp = new JPanel(new BorderLayout(10, 0));
 
-		this.add(panelLbl, BorderLayout.WEST);
-		this.add(panelTxt, BorderLayout.CENTER);
-		this.add(panelSld, BorderLayout.EAST);
+		panelTmp.add(panelLbl, BorderLayout.WEST);
+		panelTmp.add(panelTxt, BorderLayout.CENTER);
+
+		this.add(panelTmp, BorderLayout.CENTER);
+		this.add(this.btnLinked, BorderLayout.EAST);
+	}
+
+
+	// Methods
+	public void actionPerformed(ActionEvent e)
+	{
+		if (e.getSource() == this.btnLinked)
+		{
+			this.linked = !this.linked;
+			UIFactory.useDesign(this.btnLinked, this.linked ? "link.png" : "no-link.png");
+			return;
+		}
+
+		if (this.linked)
+		{
+			if (e.getSource() == this.txtLine)
+			{
+				double ratio = Integer.parseInt(this.txtLine.getText()) / (double) this.grid.getNbLine();
+				int    nbCol = (int) (ratio * this.grid.getNbCol());
+				this.txtCol.setText("" + nbCol);
+			}
+			else
+			{
+				double ratio  = Integer.parseInt(this.txtCol.getText()) / (double) this.grid.getNbCol();
+				int    nbLine = (int) (ratio * this.grid.getNbLine());
+				this.txtLine.setText("" + nbLine);
+			}
+		}
+
+		this.ctrl.changeSize(Integer.parseInt(this.txtLine.getText()), Integer.parseInt(this.txtCol.getText()));
 	}
 }

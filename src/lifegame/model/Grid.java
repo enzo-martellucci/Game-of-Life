@@ -162,6 +162,11 @@ public class Grid
 		this.initMemory();
 	}
 
+	public void changeSize(int nbLine, int nbCol)
+	{
+		System.out.println("Changing size");
+	}
+
 	// Memory methods
 	private void initMemory()
 	{

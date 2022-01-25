@@ -1,6 +1,7 @@
 package lifegame.view.util;
 
 import javax.swing.*;
+import java.awt.*;
 
 public final class UIFactory
 {
@@ -17,12 +18,29 @@ public final class UIFactory
 
 	public static void useDesign(JButton btn, String design)
 	{
+		Icon nIcon = new ImageIcon(IMG_PATH + "button/normal/"   + design);
+		Icon pIcon = new ImageIcon(IMG_PATH + "button/pressed/"  + design);
+		Icon rIcon = new ImageIcon(IMG_PATH + "button/rollover/" + design);
+
+		btn.setPreferredSize(new Dimension(nIcon.getIconWidth(), nIcon.getIconHeight()));
+
 		btn.setBorderPainted    (false);
 		btn.setContentAreaFilled(false);
 		btn.setFocusPainted     (false);
 
-		btn.setIcon        (new ImageIcon(IMG_PATH + "normal/"   + design));
-		btn.setPressedIcon (new ImageIcon(IMG_PATH + "pressed/"  + design));
-		btn.setRolloverIcon(new ImageIcon(IMG_PATH + "rollover/" + design));
+		btn.setIcon        (nIcon);
+		btn.setPressedIcon (pIcon);
+		btn.setRolloverIcon(rIcon);
+	}
+
+	public static JLabel createLbl(String design)
+	{
+		JLabel lbl = new JLabel();
+		Icon icon = new ImageIcon(IMG_PATH + "label/" + design);
+
+		lbl.setPreferredSize(new Dimension(icon.getIconWidth(), icon.getIconHeight()));
+		lbl.setIcon(icon);
+
+		return lbl;
 	}
 }

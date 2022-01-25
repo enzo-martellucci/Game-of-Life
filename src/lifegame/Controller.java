@@ -115,6 +115,17 @@ public class Controller
 		this.loop.setSpeed(value);
 	}
 
+	public void changeSize(int nbLine, int nbCol)
+	{
+		if (nbLine > this.view.getMaxLine() || nbCol > this.view.getMaxCol() || nbLine == 0 || nbCol == 0) return;
+
+		if (!this.paused)
+			this.playPause();
+		this.grid.changeSize(nbLine, nbCol);
+		this.view.majDimension();
+		this.view.maj();
+	}
+
 
 	// Main
 	public static void main(String[] args)

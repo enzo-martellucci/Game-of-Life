@@ -12,7 +12,7 @@ public class PanelUser extends JPanel
 	private PanelAction     panelAction;
 	private PanelGeneration panelGeneration;
 	private PanelSize       panelSize;
-	private PanelSpeed      panelSpeed;
+	private PanelDelay      panelDelay;
 
 
 	// Constructor
@@ -24,8 +24,8 @@ public class PanelUser extends JPanel
 		// Creation
 		this.panelAction     = new PanelAction    (ctrl);
 		this.panelGeneration = new PanelGeneration(ctrl);
-		this.panelSize       = new PanelSize      (ctrl);
-		this.panelSpeed      = new PanelSpeed     (ctrl);
+		this.panelSize       = new PanelSize      (ctrl, grid);
+		this.panelDelay      = new PanelDelay     (ctrl);
 
 		// Positioning
 		JPanel panelTmp = new JPanel();
@@ -37,7 +37,7 @@ public class PanelUser extends JPanel
 		panelTmp.add(new JSeparator());
 		panelTmp.add(this.panelSize);
 		panelTmp.add(new JSeparator());
-		panelTmp.add(this.panelSpeed);
+		panelTmp.add(this.panelDelay);
 		panelTmp.add(new JSeparator());
 
 		this.add(panelTmp, BorderLayout.NORTH);

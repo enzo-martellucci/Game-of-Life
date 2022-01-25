@@ -72,4 +72,13 @@ public class PanelDisplay extends JPanel
 		this.origin.x = (this.getWidth()  - this.innerWidth  - 6) / 2;
 		this.origin.y = (this.getHeight() - this.innerHeight - 6) / 2;
 	}
+
+	public int getMaxLine()
+	{
+		return this.getHeight() - 6;
+	}
+	public int getMaxCol()
+	{
+		return this.getWidth() - 6;
+	}
 }

@@ -23,8 +23,8 @@ public class PanelGeneration extends JPanel implements ActionListener
 	{
 		// Parameters
 		this.ctrl = ctrl;
-		this.setLayout(new GridLayout(1, 3, 5, 5));
-		this.setBorder(BorderFactory.createEmptyBorder(10, 5, 10, 5));
+		this.setLayout(new GridLayout(1, 3, 30, 30));
+		this.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 
 		// Creation
 		this.btnRandom   = UIFactory.createBtn("random.png");
