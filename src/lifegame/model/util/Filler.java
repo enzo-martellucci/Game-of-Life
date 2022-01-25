@@ -22,7 +22,7 @@ public final class Filler
 		Random random = new Random();
 
 		for (int l = 1; l < cells.length - 1; l++)
-			for (int c = 1; c < cells[l].length / 2; c++)
+			for (int c = 1; c < cells[l].length / 2 + 1; c++)
 				cells[l][c] = cells[l][cells[l].length-1-c] = random.nextBoolean();
 	}
 
@@ -30,11 +30,11 @@ public final class Filler
 	{
 		Random random = new Random();
 
-		for (int l = 1; l < cells.length / 2; l++)
-			for (int c = 1; c < cells[l].length / 2; c++)
-				cells[l][c] =
-				cells[l][cells[l].length-1-c] =
-				cells[cells.length-1-l][c] =
+		for (int l = 1; l < cells.length / 2 + 1; l++)
+			for (int c = 1; c < cells[l].length / 2 + 1; c++)
+				cells[l               ][c                  ] =
+				cells[l               ][cells[l].length-1-c] =
+				cells[cells.length-1-l][c                  ] =
 				cells[cells.length-1-l][cells[l].length-1-c] =
 				random.nextBoolean();
 	}
