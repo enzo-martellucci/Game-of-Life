@@ -27,3 +27,4 @@ The game is still in development, available functionalities for now are :
 - Save a configuration
 - Random grid generation (simple, symmetric, double symmetric)
 - Modify delay between each iteration
+- Modify size of the grid

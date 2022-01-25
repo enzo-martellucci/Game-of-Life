@@ -94,4 +94,10 @@ public class PanelSize extends JPanel implements ActionListener
 
 		this.ctrl.changeSize(Integer.parseInt(this.txtLine.getText()), Integer.parseInt(this.txtCol.getText()));
 	}
+
+	public void majDimension()
+	{
+		this.txtLine.setText("" + this.grid.getNbLine());
+		this.txtCol .setText("" + this.grid.getNbCol ());
+	}
 }

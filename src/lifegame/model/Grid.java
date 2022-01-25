@@ -164,7 +164,25 @@ public class Grid
 
 	public void changeSize(int nbLine, int nbCol)
 	{
-		System.out.println("Changing size");
+		boolean[][] oldCells = this.cells;
+		this.initGrid(nbLine, nbCol);
+
+		int shiftL = (oldCells   .length - this.cells   .length) / 2;
+		int shiftC = (oldCells[0].length - this.cells[0].length) / 2;
+
+		int offsetLN = shiftL < 0 ? -1 * shiftL : 0;
+		int offsetLO = Math.max(shiftL, 0);
+		int offsetCN = shiftC < 0 ? -1 * shiftC : 0;
+		int offsetCO = Math.max(shiftC, 0);
+
+		int lMax = Math.min(oldCells   .length, this.cells   .length) - 1;
+		int cMax = Math.min(oldCells[0].length, this.cells[0].length) - 1;
+
+		for (int l = 1; l < lMax; l++)
+			for (int c = 1; c < cMax; c++)
+				this.cells[l+offsetLN][c+offsetCN] = oldCells[l+offsetLO][c+offsetCO];
+
+		this.initMemory();
 	}
 
 	// Memory methods

@@ -47,4 +47,8 @@ public class PanelUser extends JPanel
 	{
 		this.panelAction.maj();
 	}
+	public void majDimension()
+	{
+		this.panelSize.majDimension();
+	}
 }

@@ -59,6 +59,7 @@ public class View extends JFrame
 	public void majDimension()
 	{
 		this.panelDisplay.majDimension();
+		this.panelUser   .majDimension();
 	}
 
 	public int getMaxLine()
