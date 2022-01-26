@@ -15,7 +15,7 @@ The rules to determine the state of a cell at next iteration are :
 - if the cell is alive, and have between 2 and 3 alive neighbors, she stays alive, otherwise, she die.
 
 ## Launch
-To play the Game of Life, download "Game of Life.jar" file and execute it with :
+To play the Game of Life, download "Game of Life.jar" (JDK 11+) file and execute it with :
 
 java -jar GameOfLife.jar
 
