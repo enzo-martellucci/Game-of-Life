@@ -41,7 +41,7 @@ public class PanelAction extends JPanel implements ActionListener
 		this.btnLoad      = UIFactory.createBtn("load.png");
 		this.btnSave      = UIFactory.createBtn("save.png");
 
-		this.chooser = new JFileChooser(new File("."));
+		this.chooser = new JFileChooser(new File("./saved/"));
 		this.chooser.setFileFilter(new FileNameExtensionFilter(null, "cells"));
 
 		// Listen event

@@ -7,7 +7,7 @@ public final class UIFactory
 {
 	private UIFactory(){}
 
-	private static final String IMG_PATH = "./resources/images/";
+	private static final ClassLoader LOADER = UIFactory.class.getClassLoader();
 
 	public static JButton createBtn(String design)
 	{
@@ -18,9 +18,9 @@ public final class UIFactory
 
 	public static void useDesign(JButton btn, String design)
 	{
-		Icon nIcon = new ImageIcon(IMG_PATH + "button/normal/"   + design);
-		Icon pIcon = new ImageIcon(IMG_PATH + "button/pressed/"  + design);
-		Icon rIcon = new ImageIcon(IMG_PATH + "button/rollover/" + design);
+		Icon nIcon = new ImageIcon(LOADER.getResource("images/button/normal/"   + design));
+		Icon pIcon = new ImageIcon(LOADER.getResource("images/button/pressed/"  + design));
+		Icon rIcon = new ImageIcon(LOADER.getResource("images/button/rollover/" + design));
 
 		btn.setPreferredSize(new Dimension(nIcon.getIconWidth(), nIcon.getIconHeight()));
 
@@ -36,7 +36,7 @@ public final class UIFactory
 	public static JLabel createLbl(String design)
 	{
 		JLabel lbl = new JLabel();
-		Icon icon = new ImageIcon(IMG_PATH + "label/" + design);
+		Icon icon = new ImageIcon(LOADER.getResource("images/label/" + design));
 
 		lbl.setPreferredSize(new Dimension(icon.getIconWidth(), icon.getIconHeight()));
 		lbl.setIcon(icon);
